@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import NewTaskForm from './NewTaskForm';
-import FilterButtons from './FilterButtons';
-import TaskList from './TaskList';
+import NewTaskForm from '../components/NewTaskForm';
+import FilterButtons from '../components/FilterButtons';
+import TaskList from '../components/TaskList';
 
 const Todo = () => {
   const [tasks, setTasks] = useState(() => {
-    const saved = localStorage.getItem("tasks");
+    const saved = localStorage.getItem("spiritualGoals");
     return saved ? JSON.parse(saved) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("spiritualGoals", JSON.stringify(tasks));
   }, [tasks]);
 
   const [taskInput, setTaskInput] = useState("");
@@ -42,7 +42,10 @@ const Todo = () => {
 
   return (
     <div>
-      <h2>To-Do List</h2>
+      <h2>Spiritual Goals</h2>
+      <p style={{ marginBottom: '1rem' }}>
+        Track your faith-building habits like prayer, Bible reading, fasting, or journaling.
+      </p>
       <FilterButtons filter={filter} setFilter={setFilter} />
 
       <div className="task-container">
