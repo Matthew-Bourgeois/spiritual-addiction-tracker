@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import React, { useState, useEffect } from 'react';
 
 const sinVerses = {
   Pride: 'Proverbs 16:18 - Pride goes before destruction, a haughty spirit before a fall.',
@@ -19,6 +18,7 @@ const SinLog = () => {
     const saved = localStorage.getItem('sinLogs');
     return saved ? JSON.parse(saved) : [];
   });
+  const [filter, setFilter] = useState('All');
 
   useEffect(() => {
     localStorage.setItem('sinLogs', JSON.stringify(logs));
@@ -78,18 +78,28 @@ const SinLog = () => {
 
       <hr />
 
+      <label>Filter by Sin:</label>
+      <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+        <option value="All">All</option>
+        {Object.keys(sinVerses).map((sin) => (
+          <option key={sin} value={sin}>{sin}</option>
+        ))}
+      </select>
+
       <h3>My History</h3>
       <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-        {logs.map((log) => (
-          <li key={log.id} style={{ marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
-            <strong>{log.date} - {log.sin}</strong>
-            <p><em>{log.journal}</em></p>
-            <p style={{ color: log.overcame ? 'green' : 'red' }}>
-              {log.overcame ? '✅ Overcame' : '❌ Gave in'}
-            </p>
-            <p><strong>Verse:</strong> {log.verse}</p>
-          </li>
-        ))}
+        {logs
+          .filter(log => filter === 'All' || log.sin === filter)
+          .map((log) => (
+            <li key={log.id} style={{ marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
+              <strong>{log.date} - {log.sin}</strong>
+              <p><em>{log.journal}</em></p>
+              <p style={{ color: log.overcame ? 'green' : 'red' }}>
+                {log.overcame ? '✅ Overcame' : '❌ Gave in'}
+              </p>
+              <p><strong>Verse:</strong> {log.verse}</p>
+            </li>
+          ))}
       </ul>
     </div>
   );
