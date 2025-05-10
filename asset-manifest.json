@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/spiritual-addiction-tracker/static/css/main.dd935e86.chunk.css",
+    "main.js": "/spiritual-addiction-tracker/static/js/main.0f6f1a72.chunk.js",
+    "main.js.map": "/spiritual-addiction-tracker/static/js/main.0f6f1a72.chunk.js.map",
+    "runtime-main.js": "/spiritual-addiction-tracker/static/js/runtime-main.641baed3.js",
+    "runtime-main.js.map": "/spiritual-addiction-tracker/static/js/runtime-main.641baed3.js.map",
+    "static/js/2.07f38d17.chunk.js": "/spiritual-addiction-tracker/static/js/2.07f38d17.chunk.js",
+    "static/js/2.07f38d17.chunk.js.map": "/spiritual-addiction-tracker/static/js/2.07f38d17.chunk.js.map",
+    "static/js/3.9bb14dc1.chunk.js": "/spiritual-addiction-tracker/static/js/3.9bb14dc1.chunk.js",
+    "static/js/3.9bb14dc1.chunk.js.map": "/spiritual-addiction-tracker/static/js/3.9bb14dc1.chunk.js.map",
+    "index.html": "/spiritual-addiction-tracker/index.html",
+    "precache-manifest.b8a94d1a28fc5205214c7949bbcd5861.js": "/spiritual-addiction-tracker/precache-manifest.b8a94d1a28fc5205214c7949bbcd5861.js",
+    "service-worker.js": "/spiritual-addiction-tracker/service-worker.js",
+    "static/css/main.dd935e86.chunk.css.map": "/spiritual-addiction-tracker/static/css/main.dd935e86.chunk.css.map",
+    "static/js/2.07f38d17.chunk.js.LICENSE.txt": "/spiritual-addiction-tracker/static/js/2.07f38d17.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.641baed3.js",
+    "static/js/2.07f38d17.chunk.js",
+    "static/css/main.dd935e86.chunk.css",
+    "static/js/main.0f6f1a72.chunk.js"
+  ]
+}
