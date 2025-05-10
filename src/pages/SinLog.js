@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+// 🔄 Bible verses for each sin
 const sinVerses = {
   Pride: 'Proverbs 16:18 - Pride goes before destruction, a haughty spirit before a fall.',
   Envy: 'James 3:16 - For where you have envy and selfish ambition, there you find disorder...',
@@ -8,6 +9,26 @@ const sinVerses = {
   Gluttony: '1 Corinthians 6:19-20 - Your body is a temple of the Holy Spirit...',
   Greed: 'Luke 12:15 - Be on your guard against all kinds of greed...',
   Sloth: 'Proverbs 19:15 - Laziness brings on deep sleep, and the shiftless go hungry.'
+};
+
+// 🔢 Streak calculation
+const getStreaks = (logs) => {
+  let currentStreak = 0;
+  let bestStreak = 0;
+  let tempStreak = 0;
+
+  for (let i = 0; i < logs.length; i++) {
+    if (logs[i].overcame) {
+      tempStreak++;
+      if (i === 0) currentStreak++;
+      bestStreak = Math.max(bestStreak, tempStreak);
+    } else {
+      if (i === 0) currentStreak = 0;
+      tempStreak = 0;
+    }
+  }
+
+  return { currentStreak, bestStreak };
 };
 
 const SinLog = () => {
@@ -19,6 +40,8 @@ const SinLog = () => {
     return saved ? JSON.parse(saved) : [];
   });
   const [filter, setFilter] = useState('All');
+
+  const { currentStreak, bestStreak } = getStreaks(logs);
 
   useEffect(() => {
     localStorage.setItem('sinLogs', JSON.stringify(logs));
@@ -45,6 +68,12 @@ const SinLog = () => {
   return (
     <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'left' }}>
       <h2>Daily Sin Tracker</h2>
+
+      {/* 🔥 Streak Info */}
+      <div style={{ marginBottom: '1rem' }}>
+        <p>🔥 <strong>Current Streak:</strong> {currentStreak} day{currentStreak !== 1 ? 's' : ''}</p>
+        <p>🏅 <strong>Best Streak:</strong> {bestStreak} day{bestStreak !== 1 ? 's' : ''}</p>
+      </div>
 
       <form onSubmit={handleSubmit}>
         <label>Sin Category:</label>
@@ -78,6 +107,7 @@ const SinLog = () => {
 
       <hr />
 
+      {/* Filter */}
       <label>Filter by Sin:</label>
       <select value={filter} onChange={(e) => setFilter(e.target.value)}>
         <option value="All">All</option>
@@ -86,6 +116,7 @@ const SinLog = () => {
         ))}
       </select>
 
+      {/* History */}
       <h3>My History</h3>
       <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
         {logs
@@ -106,3 +137,4 @@ const SinLog = () => {
 };
 
 export default SinLog;
+
