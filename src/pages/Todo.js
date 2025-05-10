@@ -44,8 +44,19 @@ const Todo = () => {
     <div>
       <h2>To-Do List</h2>
       <FilterButtons filter={filter} setFilter={setFilter} />
-      <NewTaskForm taskInput={taskInput} setTaskInput={setTaskInput} addTask={addTask} />
-      <TaskList tasks={filteredTasks} toggleTaskCompletion={toggleTaskCompletion} deleteTask={deleteTask} />
+
+      <div className="task-container">
+        <NewTaskForm
+          taskInput={taskInput}
+          setTaskInput={setTaskInput}
+          addTask={addTask}
+        />
+        <TaskList
+          tasks={filteredTasks}
+          toggleTaskCompletion={toggleTaskCompletion}
+          deleteTask={deleteTask}
+        />
+      </div>
     </div>
   );
 };
