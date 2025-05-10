@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import NewTaskForm from '../components/NewTaskForm';
-import FilterButtons from '../components/FilterButtons';
-import TaskList from '../components/TaskList';
+import NewTaskForm from './NewTaskForm';
+import FilterButtons from './FilterButtons';
+import TaskList from './TaskList';
 
 const Todo = () => {
   const [tasks, setTasks] = useState(() => {
