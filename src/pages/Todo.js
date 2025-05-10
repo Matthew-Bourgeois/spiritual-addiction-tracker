@@ -4,39 +4,39 @@ import FilterButtons from './FilterButtons';
 import TaskList from './TaskList';
 
 const Todo = () => {
-  const [tasks, setTasks] = useState(() => {
+  const [goals, setGoals] = useState(() => {
     const saved = localStorage.getItem("spiritualGoals");
     return saved ? JSON.parse(saved) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem("spiritualGoals", JSON.stringify(tasks));
-  }, [tasks]);
+    localStorage.setItem("spiritualGoals", JSON.stringify(goals));
+  }, [goals]);
 
-  const [taskInput, setTaskInput] = useState("");
+  const [goalInput, setGoalInput] = useState("");
   const [filter, setFilter] = useState("all");
 
-  const addTask = (e) => {
+  const addGoal = (e) => {
     e.preventDefault();
-    if (taskInput.trim()) {
-      setTasks([...tasks, { id: Date.now(), text: taskInput, completed: false }]);
-      setTaskInput("");
+    if (goalInput.trim()) {
+      setGoals([...goals, { id: Date.now(), text: goalInput, completed: false }]);
+      setGoalInput("");
     }
   };
 
-  const toggleTaskCompletion = (id) => {
-    setTasks(tasks.map(task =>
-      task.id === id ? { ...task, completed: !task.completed } : task
+  const toggleGoalCompletion = (id) => {
+    setGoals(goals.map(goal =>
+      goal.id === id ? { ...goal, completed: !goal.completed } : goal
     ));
   };
 
-  const deleteTask = (id) => {
-    setTasks(tasks.filter(task => task.id !== id));
+  const deleteGoal = (id) => {
+    setGoals(goals.filter(goal => goal.id !== id));
   };
 
-  const filteredTasks = tasks.filter(task => {
-    if (filter === "completed") return task.completed;
-    if (filter === "incomplete") return !task.completed;
+  const filteredGoals = goals.filter(goal => {
+    if (filter === "completed") return goal.completed;
+    if (filter === "incomplete") return !goal.completed;
     return true;
   });
 
@@ -44,20 +44,22 @@ const Todo = () => {
     <div>
       <h2>Spiritual Goals</h2>
       <p style={{ marginBottom: '1rem' }}>
-        Track your faith-building habits like prayer, Bible reading, fasting, or journaling.
+        Set daily goals to grow closer to God. These could include prayer, fasting, scripture reading, or service.
       </p>
+
       <FilterButtons filter={filter} setFilter={setFilter} />
 
       <div className="task-container">
         <NewTaskForm
-          taskInput={taskInput}
-          setTaskInput={setTaskInput}
-          addTask={addTask}
+          taskInput={goalInput}
+          setTaskInput={setGoalInput}
+          addTask={addGoal}
+          placeholder="Enter a spiritual goal..."
         />
         <TaskList
-          tasks={filteredTasks}
-          toggleTaskCompletion={toggleTaskCompletion}
-          deleteTask={deleteTask}
+          tasks={filteredGoals}
+          toggleTaskCompletion={toggleGoalCompletion}
+          deleteTask={deleteGoal}
         />
       </div>
     </div>
@@ -65,3 +67,4 @@ const Todo = () => {
 };
 
 export default Todo;
+
