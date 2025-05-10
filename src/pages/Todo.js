@@ -13,6 +13,7 @@ const Todo = () => {
   }, [tasks]);
 
   const [taskInput, setTaskInput] = useState("");
+  const [filter, setFilter] = useState("all"); // NEW: filter state
 
   // Add a task
   const addTask = (e) => {
@@ -35,10 +36,25 @@ const Todo = () => {
     setTasks(tasks.filter(task => task.id !== id));
   };
 
+  // Filter tasks
+  const filteredTasks = tasks.filter(task => {
+    if (filter === "completed") return task.completed;
+    if (filter === "incomplete") return !task.completed;
+    return true; // "all"
+  });
+
   return (
     <div>
       <h2>To-Do List</h2>
 
+      {/* Filter Buttons */}
+      <div>
+        <button onClick={() => setFilter("all")}>All</button>
+        <button onClick={() => setFilter("completed")}>Completed</button>
+        <button onClick={() => setFilter("incomplete")}>Incomplete</button>
+      </div>
+
+      {/* Add Task Form */}
       <form onSubmit={addTask}>
         <input
           type="text"
@@ -49,8 +65,9 @@ const Todo = () => {
         <button type="submit">Add Task</button>
       </form>
 
+      {/* Task List */}
       <ul>
-        {tasks.map(task => (
+        {filteredTasks.map(task => (
           <li key={task.id}>
             <span
               style={{ textDecoration: task.completed ? 'line-through' : 'none', cursor: 'pointer' }}
