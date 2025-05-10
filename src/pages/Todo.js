@@ -1,27 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Todo = () => {
-  // State to store the tasks
-  const [tasks, setTasks] = useState([]);
-  const [taskInput, setTaskInput] = useState(""); // State to handle input field
+  // Load tasks from localStorage on first render
+  const [tasks, setTasks] = useState(() => {
+    const saved = localStorage.getItem("tasks");
+    return saved ? JSON.parse(saved) : [];
+  });
 
-  // Handle form submit to add a task
+  // Save tasks to localStorage whenever tasks change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  const [taskInput, setTaskInput] = useState("");
+
+  // Add a task
   const addTask = (e) => {
     e.preventDefault();
     if (taskInput.trim()) {
       setTasks([...tasks, { id: Date.now(), text: taskInput, completed: false }]);
-      setTaskInput(""); // Clear the input field after adding the task
+      setTaskInput("");
     }
   };
 
-  // Handle task completion
+  // Toggle task completion
   const toggleTaskCompletion = (id) => {
     setTasks(tasks.map(task =>
       task.id === id ? { ...task, completed: !task.completed } : task
     ));
   };
 
-  // Handle task deletion
+  // Delete a task
   const deleteTask = (id) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
@@ -29,29 +38,29 @@ const Todo = () => {
   return (
     <div>
       <h2>To-Do List</h2>
-      
-      {/* Task input and add task button */}
+
       <form onSubmit={addTask}>
-        <input 
-          type="text" 
-          value={taskInput} 
-          onChange={(e) => setTaskInput(e.target.value)} 
+        <input
+          type="text"
+          value={taskInput}
+          onChange={(e) => setTaskInput(e.target.value)}
           placeholder="Enter a new task"
         />
         <button type="submit">Add Task</button>
       </form>
 
-      {/* Display the list of tasks */}
       <ul>
         {tasks.map(task => (
           <li key={task.id}>
-            <span 
-              style={{ textDecoration: task.completed ? 'line-through' : 'none' }}
+            <span
+              style={{ textDecoration: task.completed ? 'line-through' : 'none', cursor: 'pointer' }}
               onClick={() => toggleTaskCompletion(task.id)}
             >
               {task.text}
             </span>
-            <button onClick={() => deleteTask(task.id)}>Delete</button>
+            <button onClick={() => deleteTask(task.id)} style={{ marginLeft: "10px" }}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
@@ -60,3 +69,4 @@ const Todo = () => {
 };
 
 export default Todo;
+
