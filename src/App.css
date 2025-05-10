@@ -1,45 +1,41 @@
-html, body {
-  overflow-x: hidden;
+/* Global Reset */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  width: 100%;
 }
 
-
-
-/* Base Styling */
+/* Base Layout */
 html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  width: 100%;
-}
-
-body {
   font-family: 'Arial', sans-serif;
   background: linear-gradient(to top, #2c3e50, #8e44ad);
   color: white;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
   text-align: center;
+  padding-bottom: 2rem;
 }
 
-/* Header (Title) */
+.App {
+  padding: 2rem 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Header */
 h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: #f39c12;
   text-shadow: 2px 2px 10px rgba(255, 223, 186, 0.7);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   animation: fadeIn 2s ease-in-out;
 }
 
-/* Navigation Bar */
+/* Navigation */
 nav {
   background: rgba(0, 0, 0, 0.5);
-  padding: 1rem 2rem;
+  padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(255, 223, 186, 0.8);
   margin-bottom: 2rem;
@@ -47,106 +43,114 @@ nav {
 
 nav ul {
   list-style: none;
-  padding: 0;
-}
-
-nav ul li {
-  display: inline;
-  margin-right: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }
 
 nav ul li a {
   text-decoration: none;
   color: #f39c12;
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-transform: uppercase;
   font-weight: bold;
   transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-  color: #fff;
+  color: #ffffff;
 }
 
-/* Section Styling */
+/* Page Sections */
 section {
   background: rgba(255, 255, 255, 0.1);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 0 25px rgba(255, 223, 186, 0.8);
-  width: 80%;
-  max-width: 1000px;
   margin-bottom: 2rem;
-  animation: slideUp 2s ease-in-out;
+  animation: slideUp 1s ease-in-out;
 }
 
-/* Section Header (Subheading) */
-section h2 {
-  font-size: 2.5rem;
+/* Headings */
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
   color: #f39c12;
   text-shadow: 1px 1px 8px rgba(255, 223, 186, 0.7);
 }
 
-/* Button Styling */
+h3 {
+  font-size: 1.5rem;
+  margin: 1rem 0 0.5rem;
+  color: #ffffff;
+}
+
+/* Buttons */
 button {
   background: #e74c3c;
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  border-radius: 5px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 button:hover {
   background-color: #c0392b;
 }
 
-/* Side-by-Side Task Layout */
+/* Inputs & Forms */
+input,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid #f39c12;
+}
+
+/* Tasks Layout */
 .task-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 2rem;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.task-container form {
-  flex: 1;
-  min-width: 250px;
-}
-
+.task-container form,
 .task-container ul {
-  flex: 2;
-  min-width: 300px;
+  flex: 1 1 100%;
 }
 
-/* Responsive Form Fields */
-input,
-textarea,
-button {
-  max-width: 100%;
-  box-sizing: border-box;
+li, span {
+  word-break: break-word;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: 1rem;
 }
 
-/* Animation Effects */
+/* Animations */
 @keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @keyframes slideUp {
   0% {
-    transform: translateY(50px);
+    transform: translateY(30px);
     opacity: 0;
   }
   100% {
@@ -155,51 +159,19 @@ button {
   }
 }
 
-/* Make text wrap and shrink nicely */
-.task-container {
-  word-break: break-word;
+/* Responsive Design */
+@media (min-width: 600px) {
+  .task-container form,
+  .task-container ul {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+  }
 }
-
-.task-container span,
-.task-container li {
-  white-space: normal;
-  word-wrap: break-word;
-  overflow-wrap: anywhere;
-}
-
-
-/* Prevent overflow and ensure visibility on small screens */
-* {
-  box-sizing: border-box;
-  max-width: 100%;
-}
-
-.task-container {
-  width: 100%;
-  overflow-x: hidden;
-  flex-wrap: wrap;
-  display: flex;
-  gap: 1rem;
-}
-
-.task-container form,
-.task-container ul {
-  flex: 1 1 100%;
-}
-
-li, span, input, textarea, button, h2 {
-  word-break: break-word;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  font-size: 1rem;
-}
-
-/* Make sure input fields and buttons don’t stretch or get cut off */
-input, textarea, button {
-  width: 100%;
-  padding: 0.75rem;
-  font-size: 1rem;
-}
-
-
-
