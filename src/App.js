@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import Todo from './pages/Todo'; // Make sure it's 'Todo' (singular)
+import Todo from './pages/Todo';
 import Contact from './pages/Contact';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -14,20 +14,20 @@ function App() {
         <h1>Spiritual Addiction Tracker</h1>
         <nav>
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/todo">Todos</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/seven-deadly-sins">Seven Deadly Sins</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/todo">Todos</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/seven-deadly-sins">Seven Deadly Sins</Link></li>
           </ul>
         </nav>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/todo" component={Todo} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/seven-deadly-sins" component={SevenDeadlySins} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/todo" element={<Todo />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/seven-deadly-sins" element={<SevenDeadlySins />} />
+        </Routes>
       </div>
     </Router>
   );
