@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import NewTaskForm from './NewTaskForm';
+import FilterButtons from './FilterButtons';
+import TaskList from './TaskList';
 
 const Todo = () => {
-  // Load tasks from localStorage on first render
   const [tasks, setTasks] = useState(() => {
     const saved = localStorage.getItem("tasks");
     return saved ? JSON.parse(saved) : [];
   });
 
-  // Save tasks to localStorage whenever tasks change
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
   const [taskInput, setTaskInput] = useState("");
-  const [filter, setFilter] = useState("all"); // NEW: filter state
+  const [filter, setFilter] = useState("all");
 
-  // Add a task
   const addTask = (e) => {
     e.preventDefault();
     if (taskInput.trim()) {
@@ -24,66 +24,30 @@ const Todo = () => {
     }
   };
 
-  // Toggle task completion
   const toggleTaskCompletion = (id) => {
     setTasks(tasks.map(task =>
       task.id === id ? { ...task, completed: !task.completed } : task
     ));
   };
 
-  // Delete a task
   const deleteTask = (id) => {
     setTasks(tasks.filter(task => task.id !== id));
   };
 
-  // Filter tasks
   const filteredTasks = tasks.filter(task => {
     if (filter === "completed") return task.completed;
     if (filter === "incomplete") return !task.completed;
-    return true; // "all"
+    return true;
   });
 
   return (
     <div>
       <h2>To-Do List</h2>
-
-      {/* Filter Buttons */}
-      <div>
-        <button onClick={() => setFilter("all")}>All</button>
-        <button onClick={() => setFilter("completed")}>Completed</button>
-        <button onClick={() => setFilter("incomplete")}>Incomplete</button>
-      </div>
-
-      {/* Add Task Form */}
-      <form onSubmit={addTask}>
-        <input
-          type="text"
-          value={taskInput}
-          onChange={(e) => setTaskInput(e.target.value)}
-          placeholder="Enter a new task"
-        />
-        <button type="submit">Add Task</button>
-      </form>
-
-      {/* Task List */}
-      <ul>
-        {filteredTasks.map(task => (
-          <li key={task.id}>
-            <span
-              style={{ textDecoration: task.completed ? 'line-through' : 'none', cursor: 'pointer' }}
-              onClick={() => toggleTaskCompletion(task.id)}
-            >
-              {task.text}
-            </span>
-            <button onClick={() => deleteTask(task.id)} style={{ marginLeft: "10px" }}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+      <FilterButtons filter={filter} setFilter={setFilter} />
+      <NewTaskForm taskInput={taskInput} setTaskInput={setTaskInput} addTask={addTask} />
+      <TaskList tasks={filteredTasks} toggleTaskCompletion={toggleTaskCompletion} deleteTask={deleteTask} />
     </div>
   );
 };
 
 export default Todo;
-
